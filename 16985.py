@@ -3,37 +3,26 @@ import sys
 sys.stdin = open('test.txt')
 
 # 백준 16985. Maaaaaaaaaze
-import copy
+
 import itertools
 
 
-def perm(s, e):
-    if s == e:
-        for num in sets:
-            cnt = 1
-            for _ in range(num):
-                tmp = []
-                for t in zip(*dic[cnt]):
-                    tmp.append(list(reversed(t)))
-
-                dic[cnt] = copy.deepcopy(tmp)
-                cnt += 1
-
-    else:
-        for i in range(N):
-            sets[s] = arr[i]
-            perm(s+1, e)
-
-
-num = 1
-dic = {}
-for _ in range(5):
+tmp = {}
+vstd = {}
+for j in range(5):
     face = [list(map(int, input().split())) for _ in range(5)]
-    dic[num] = face
-    num += 1
+    vt = [[0] * 5 for _ in range(5)]
+    tmp[j] = face
+    vstd[j] = vt
 
-i_perm = itertools.permutations([1, 2, 3, 4, 5], 5)
-arr = [k for k in range(4)]
-sets = [0] * 5
-N = len(arr)
-perm(0, 5)
+
+sets = itertools.permutations([k for k in range(5)], 5)
+for se in sets:
+    if se[0] < se[-1]:
+        cube = {}
+        for i in range(5):
+            cube[i] = tmp[se[i]]
+
+        q = [(0, 0, 0)]
+        while q:
+            x, y, z = q.pop()
