@@ -3,6 +3,7 @@ import sys
 sys.stdin = open('test.txt')
 
 # 백준 2138. 전구와 스위치
+
 import copy
 
 N = int(input())
