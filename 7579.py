@@ -3,30 +3,20 @@ sys.stdin = open('test.txt')
 
 # 백준 7579. 앱
 
-
-def check(space, info, calc, idx, memo):
-    if calc >= memo[space][idx]:
-        return
-    memo[space][idx] = calc
-    for i in range(idx, N):
-        if space <= 0:
-            return
-        check(space - info[i][0], info, calc + info[i][1], i + 1, memo)
-
-
 N, M = map(int, input().split())
 memory = list(map(int, input().split()))
 cost = list(map(int, input().split()))
-info = []
-for u in zip(memory, cost):
-    info.append(list(u))
 
-max_cost = sum(c[1] for c in info)
-memo = [[sys.maxsize] * (N + 1) for _ in range(max_cost + 1)]
-check(M, info, 0, 0, memo)
+dp = [[0] * (sum(cost)+1) for _ in range(N+1)]
+res = sum(cost)+1
+for i in range(1, N+1):
+    for j in range(0, sum(cost)+1):
+        if j >= cost[i-1]:
+            dp[i][j] = max(dp[i-1][j], dp[i-1][j-cost[i-1]]+memory[i-1])
+        else:
+            dp[i][j] = dp[i-1][j]
 
-for i in range(max_cost, -1, -1):
-    for j in range(N, -1, -1):
-        if memo[i][j] != sys.maxsize:
-            print(memo[i][j])
-            exit()
+        if dp[i][j] >= M:
+            res = min(j, res)
+
+print(res)
