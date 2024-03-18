@@ -12,18 +12,6 @@ def check(s):
             check(i)
 
 
-def find(num):
-    res[num] += 1
-    while True:
-        num = parents[num]
-        if num == 10001:
-            break
-        res[num] += 1
-        if res[num] == 2:
-            print(num)
-            break
-
-
 N = int(input())
 Tree = [[] for _ in range(N+1)]
 for _ in range(N-1):
@@ -33,11 +21,9 @@ for _ in range(N-1):
 
 M = int(input())
 parents = [0] * (N+1)
-parents[1] = 10001
+parents[1] = 50001
 check(1)
 
 for _ in range(M):
-    res = [0] * 10001
+    res = [0] * 50001
     x, y = map(int, input().split())
-    find(x)
-    find(y)
