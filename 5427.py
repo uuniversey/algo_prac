@@ -40,7 +40,7 @@ for _ in range(T):
                     if 0 <= nm < h and 0 <= nn < w and building[nm][nn] == '.' and f_vstd[nm][nn] == 0:
                         tmp.append((nm, nn))
                         f_vstd[nm][nn] = 1
-            fire += tmp
+            fire = tmp
         time = t
 
         for dr, dc in delta:

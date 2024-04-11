@@ -1,32 +1,25 @@
-
 import sys
 sys.stdin = open('test.txt')
 
-N = int(sys.stdin.readline())
-arr = list(map(int, sys.stdin.readline().split()))
-M = int(sys.stdin.readline())
+# 백준 10942. 팰린드롬?
+
+input = sys.stdin.readline
+N = int(input())
+arr = list(map(int, input().split()))
+M = int(input())
+dp = [[0] * N for _ in range(N)]
+
+for i in range(N):
+    for s in range(N-i):
+        e = s + i
+        if s == e:
+            dp[s][e] = 1
+        elif arr[s] == arr[e]:
+            if s + 1 == e:
+                dp[s][e] = 1
+            elif dp[s+1][e-1] == 1:
+                dp[s][e] = 1
+
 for _ in range(M):
-    res = 0
-    S, E = map(int, sys.stdin.readline().split())
-    if E-S == 0:
-        res = 1
-
-    elif E-S == 1:
-        if arr[E-1] == arr[S-1]:
-            res = 1
-
-    elif E-S % 2:
-        for k in range((E-S)//2+1):
-            if arr[E-1-k] != arr[S-1+k]:
-                break
-        else:
-            res = 1
-
-    else:
-        for j in range(1, (E-S)):
-            if arr[(E+S)//2-1+j] != arr[(E+S)//2-1-j]:
-                break
-        else:
-            res = 1
-
-    print(res)
+    S, E = map(int, input().split())
+    print(dp[S-1][E-1])
